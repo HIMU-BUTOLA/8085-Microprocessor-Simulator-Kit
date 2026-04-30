@@ -30,35 +30,4 @@ public class Memory {
     public void reset() {
         Arrays.fill(memorySpace, (byte) 0);
     }
-
-    public void loadHexFile(String filePath) throws IOException {
-        int extendedAddress = 0;
-        for (String line : Files.readAllLines(Paths.get(filePath))) {
-            String trimmed = line.trim();
-            if (trimmed.isEmpty()) continue;
-            if (trimmed.charAt(0) == ':') {
-                int count = Integer.parseInt(trimmed.substring(1, 3), 16);
-                int address = Integer.parseInt(trimmed.substring(3, 7), 16);
-                int recordType = Integer.parseInt(trimmed.substring(7, 9), 16);
-                if (recordType == 0x00) {
-                    for (int i = 0; i < count; i++) {
-                        int data = Integer.parseInt(trimmed.substring(9 + i * 2, 11 + i * 2), 16);
-                        writeByte(extendedAddress + address + i, (byte) data);
-                    }
-                } else if (recordType == 0x01) {
-                    break;
-                } else if (recordType == 0x04) {
-                    extendedAddress = Integer.parseInt(trimmed.substring(9, 13), 16) << 16;
-                }
-            } else {
-                String[] tokens = trimmed.split("\\s+");
-                int address = 0;
-                for (String token : tokens) {
-                    if (token.isEmpty()) continue;
-                    int data = Integer.parseInt(token, 16);
-                    writeByte(address++, (byte) data);
-                }
-            }
-        }
-    }
 }
