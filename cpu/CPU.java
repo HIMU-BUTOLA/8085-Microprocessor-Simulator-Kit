@@ -60,7 +60,7 @@ public class CPU {
         flags |= flagZ ? 0x40 : 0;
         flags |= flagAC ? 0x10 : 0;
         flags |= flagP ? 0x04 : 0;
-        flags |= 0x02; // reserved bit always set
+        flags |= 0x02; 
         flags |= flagCY ? 0x01 : 0;
         return ((A & 0xFF) << 8) | (flags & 0xFF);
     }

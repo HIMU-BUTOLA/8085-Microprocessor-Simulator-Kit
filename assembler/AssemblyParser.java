@@ -8,7 +8,7 @@ public class AssemblyParser {
         public boolean success;
         public String label;
         public String opcode;
-        public String mnemonic; // Stores original input for the trace
+        public String mnemonic; 
         public List<String> operands = new ArrayList<>();
         public List<String> steps = new ArrayList<>();
         public byte[] bytes = new byte[0];
@@ -23,7 +23,7 @@ public class AssemblyParser {
         if (line == null) return result;
 
         String original = line.trim();
-        result.mnemonic = original; // Capture exactly what the user typed
+        result.mnemonic = original; 
         
         int commentIndex = original.indexOf(';');
         if (commentIndex >= 0) {
@@ -65,7 +65,7 @@ public class AssemblyParser {
     }
 
     private byte[] assembleInstruction(ParseResult result) {
-        // This switch handles mapping mnemonics to 8085 opcodes
+        
         try {
             switch (result.opcode) {
                 case "NOP": return new byte[]{0x00};

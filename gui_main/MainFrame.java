@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
         executor = new Executor(cpu, memory);
         parser = new AssemblyParser();
 
-        // Initialize UI Components
+        
         txtA = createRegField(); txtB = createRegField(); txtC = createRegField();
         txtD = createRegField(); txtE = createRegField(); txtH = createRegField();
         txtL = createRegField(); txtPC = createRegField(); txtSP = createRegField();
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
         setSize(1200, 850);
         setLayout(new BorderLayout(15, 15));
 
-        // --- Register Panel (Ordered) ---
+        
         JPanel regs = new JPanel(new GridLayout(2, 5, 15, 10));
         regs.setBorder(BorderFactory.createTitledBorder("Registers (Hex)"));
         regs.add(createLabeledField("A", txtA)); regs.add(createLabeledField("B", txtB));
@@ -58,16 +58,16 @@ public class MainFrame extends JFrame {
         regs.add(createLabeledField("E", txtE)); regs.add(createLabeledField("L", txtL));
         regs.add(createLabeledField("SP", txtSP));
 
-        // --- Assembly Input (Enter Key Enabled) ---
+        
         JPanel asmPanel = new JPanel(new BorderLayout(8, 8));
         asmInput = new JTextField();
         asmInput.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
         btnCompile = new JButton("Assemble");
-        asmInput.addActionListener(e -> compileInstruction(null)); // Enter key
+        asmInput.addActionListener(e -> compileInstruction(null)); 
         asmPanel.add(asmInput, BorderLayout.CENTER);
         asmPanel.add(btnCompile, BorderLayout.EAST);
 
-        // --- Memory Table (Hex Addressing) ---
+        
         memTableModel = new DefaultTableModel(new String[]{"Addr (Hex)", "Val (Hex)", "Dec", "Char"}, 0);
         memTable = new JTable(memTableModel);
         JScrollPane memScroll = new JScrollPane(memTable);
@@ -84,19 +84,19 @@ public class MainFrame extends JFrame {
         memContainer.add(memSearch, BorderLayout.NORTH);
         memContainer.add(memScroll, BorderLayout.CENTER);
 
-        // --- Execution Log ---
+        
         txtLog = new JTextArea();
         txtLog.setBackground(Color.BLACK);
         txtLog.setForeground(Color.GREEN);
         JScrollPane logScroll = new JScrollPane(txtLog);
         logScroll.setBorder(BorderFactory.createTitledBorder("Execution Trace"));
 
-        // --- Side-by-Side Layout ---
+        
         JPanel centerPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         centerPanel.add(memContainer);
         centerPanel.add(logScroll);
 
-        // --- Main Frame Assembly ---
+        
         JPanel top = new JPanel(new BorderLayout());
         top.add(regs, BorderLayout.NORTH);
         top.add(asmPanel, BorderLayout.SOUTH);
@@ -108,7 +108,7 @@ public class MainFrame extends JFrame {
         bottom.add(btnStep); bottom.add(btnRun); bottom.add(btnReset);
         add(bottom, BorderLayout.SOUTH);
 
-        // Listeners
+        
         btnCompile.addActionListener(this::compileInstruction);
         btnStoreMem.addActionListener(e -> {
             int addr = Integer.parseInt(memAddrInput.getText(), 16);
@@ -137,7 +137,7 @@ public class MainFrame extends JFrame {
             log(step);
         }
         if (res.success) {
-            int startAddr = nextAssemblyAddress; //
+            int startAddr = nextAssemblyAddress; 
             for (byte b : res.bytes) {
                 memory.writeByte(nextAssemblyAddress++, b);
             }
@@ -153,7 +153,7 @@ public class MainFrame extends JFrame {
 
     private void updateMemoryTable() {
         memTableModel.setRowCount(0);
-        for (int i = 0; i < 0x2100; i++) { // Wide range for LDA/STA 2050
+        for (int i = 0; i < 0x2100; i++) { 
             int val = memory.readByte(i) & 0xFF;
             memTableModel.addRow(new Object[]{String.format("%04X", i), String.format("%02X", val), val, (char)val});
         }
@@ -236,5 +236,5 @@ public class MainFrame extends JFrame {
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }
-//java -cp . gui_main.MainFrame
-//javac -cp . *.java gui_main/*.java assembler/*.java cpu/*.java execution/*.java memory/*.java
+
+
