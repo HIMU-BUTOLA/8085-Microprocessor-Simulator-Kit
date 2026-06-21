@@ -68,7 +68,7 @@ public class MainFrame extends JFrame {
         asmPanel.add(btnCompile, BorderLayout.EAST);
 
         
-        memTableModel = new DefaultTableModel(new String[]{"Addr (Hex)", "Val (Hex)", "Dec", "Char"}, 0);
+        memTableModel = new DefaultTableModel(new String[]{"Addr (Hex)", "Val (Hex)", "Dec"}, 0);
         memTable = new JTable(memTableModel);
         JScrollPane memScroll = new JScrollPane(memTable);
         JPanel memContainer = new JPanel(new BorderLayout());
@@ -153,9 +153,9 @@ public class MainFrame extends JFrame {
 
     private void updateMemoryTable() {
         memTableModel.setRowCount(0);
-        for (int i = 0; i < 0x2100; i++) { 
+        for (int i = 0; i < 0x2100; i++) {
             int val = memory.readByte(i) & 0xFF;
-            memTableModel.addRow(new Object[]{String.format("%04X", i), String.format("%02X", val), val, (char)val});
+            memTableModel.addRow(new Object[]{String.format("%04X", i), String.format("%02X", val), val});
         }
     }
 
@@ -232,6 +232,8 @@ public class MainFrame extends JFrame {
         chkCY.setSelected(cpu.flagCY);
     }
 
+    // javac -d out cpu\CPU.java memory\Memory.java assembler\AssemblyParser.java execution\Executor.java gui_main\MainFrame.java
+    // java -cp out gui_main.MainFrame
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
