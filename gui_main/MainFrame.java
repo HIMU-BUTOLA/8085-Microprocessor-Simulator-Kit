@@ -84,7 +84,6 @@ public class MainFrame extends JFrame {
         memContainer.add(memSearch, BorderLayout.NORTH);
         memContainer.add(memScroll, BorderLayout.CENTER);
 
-        
         txtLog = new JTextArea();
         txtLog.setBackground(Color.BLACK);
         txtLog.setForeground(Color.GREEN);
