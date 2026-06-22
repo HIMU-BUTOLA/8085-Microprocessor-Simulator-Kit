@@ -232,7 +232,9 @@ public class MainFrame extends JFrame {
         chkCY.setSelected(cpu.flagCY);
     }
 
+    //compiling all files
     // javac -d out cpu\CPU.java memory\Memory.java assembler\AssemblyParser.java execution\Executor.java gui_main\MainFrame.java
+    //running the program
     // java -cp out gui_main.MainFrame
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
